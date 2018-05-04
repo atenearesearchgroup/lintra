@@ -1,0 +1,24 @@
+module SmartHome;
+create OUT : MM refining IN : MM;
+helper def : TempIncrRuleConf : Real = 0.925;
+rule TempIncr { 
+from
+ h1 : MM!Home,
+ h2 : MM!Home (h2.home = h1.home and
+               h2.temp - h1.temp >= 2.0 and
+               h2.ts > h1.ts and
+               h2.ts - h1.ts < 60 ),
+to 
+ t : MM!TempIncr (
+   home <- h2.home,
+   ts <- h2.ts,
+   temp <- h2.temp,
+   incr <- h2.temp - h1.temp,
+   confidence <- ( 
+     h1.confidence * h2.confidence *
+     (h2.home = h1.home and
+      h2.temp - h1.temp >= 2.0 and
+      h2.ts > h1.ts and
+      h2.ts - h1.ts < 60 ).confidence() *
+     thisModule.TempIncrRuleConf )
+}

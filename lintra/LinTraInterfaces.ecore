@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="LinTraInterfaces" nsURI="http://LinTraInterfaces" nsPrefix="LinTraInterfaces">
+  <eClassifiers xsi:type="ecore:EClass" name="IBlackboard" abstract="true" interface="true">
+    <eOperations name="createArea" eType="#//IArea">
+      <eParameters name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="p" eType="#//Policy"/>
+    </eOperations>
+    <eOperations name="clearArea">
+      <eParameters name="area" eType="#//IArea"/>
+    </eOperations>
+    <eOperations name="destroyArea">
+      <eParameters name="area" eType="#//IArea"/>
+    </eOperations>
+    <eOperations name="getAllAreas">
+      <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EEList">
+        <eTypeArguments/>
+      </eGenericType>
+    </eOperations>
+    <eOperations name="size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eParameters name="area" eType="#//IArea"/>
+    </eOperations>
+    <eOperations name="size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eOperations name="clear" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IArea" abstract="true" interface="true">
+    <eOperations name="read" eType="#//IdentifiableElement">
+      <eParameters name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="readAll" ordered="false" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EEList">
+      <eParameters name="ids" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EEList"/>
+    </eOperations>
+    <eOperations name="read">
+      <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EEList">
+        <eTypeArguments/>
+      </eGenericType>
+      <eParameters name="n" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eOperations>
+    <eOperations name="read">
+      <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EEList">
+        <eTypeArguments/>
+      </eGenericType>
+      <eParameters name="method" eType="#//ISearch"/>
+    </eOperations>
+    <eOperations name="take" eType="#//IdentifiableElement">
+      <eParameters name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="takeAll">
+      <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EEList">
+        <eTypeArguments/>
+      </eGenericType>
+      <eParameters name="ids" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EEList"/>
+    </eOperations>
+    <eOperations name="take">
+      <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EEList">
+        <eTypeArguments/>
+      </eGenericType>
+      <eParameters name="n" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eOperations>
+    <eOperations name="take">
+      <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EEList">
+        <eTypeArguments/>
+      </eGenericType>
+      <eParameters name="method" eType="#//ISearch"/>
+    </eOperations>
+    <eOperations name="write" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="elem" eType="#//IdentifiableElement"/>
+    </eOperations>
+    <eOperations name="writeAll" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="elem" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EEList"/>
+    </eOperations>
+    <eOperations name="size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eOperations name="clear" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IdentifiableElement" abstract="true"
+      interface="true">
+    <eOperations name="getId"/>
+    <eOperations name="setId">
+      <eParameters name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Policy">
+    <eLiterals name="NEVER_LOCK"/>
+    <eLiterals name="LOCK_TO_READ"/>
+    <eLiterals name="LOCK_TO_WRITE"/>
+    <eLiterals name="ALWAYS_LOCK"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ISearch" abstract="true" interface="true">
+    <eOperations name="search">
+      <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EEList">
+        <eTypeArguments/>
+      </eGenericType>
+      <eParameters name="area" eType="#//IArea"/>
+    </eOperations>
+  </eClassifiers>
+</ecore:EPackage>

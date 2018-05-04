@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:surveillance="http://surveillance">
+  <surveillance:Drone currentPosition="/1" width="5.0" angle="0.78" speed="20.0"/>
+  <surveillance:Coordinate object="/0"/>
+  <surveillance:Drone currentPosition="/3" width="9.0" angle="1.5" speed="20.0"/>
+  <surveillance:Coordinate object="/2" x="500.0" y="700.0"/>
+  <surveillance:UnidentifiedObject currentPosition="/5" width="75.0" angle="3.92" speed="50.0" confidence="0.98"/>
+  <surveillance:Coordinate object="/4" x="700.0" y="700.0"/>
+  <surveillance:UnidentifiedObject currentPosition="/7" width="90.0" angle="3.14" speed="60.0" confidence="0.9"/>
+  <surveillance:Coordinate object="/6" x="1000.0" y="900.0"/>
+  <surveillance:UnidentifiedObject currentPosition="/9" width="70.0" speed="15.0" confidence="0.85"/>
+  <surveillance:Coordinate object="/8" x="2000.0" y="100.0"/>
+  <surveillance:Clock now="152499495"/>
+</xmi:XMI>

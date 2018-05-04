@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="surveillance" nsURI="http://surveillance" nsPrefix="surveillance">
+  <eAnnotations source="http://www.eclipse.org/OCL/Import">
+    <details key="ecore" value="http://www.eclipse.org/emf/2002/Ecore"/>
+  </eAnnotations>
+  <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+    <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="Coordinate">
+    <eOperations name="distance" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="body" value="20.0"/>
+      </eAnnotations>
+      <eParameters name="other" eType="#//Coordinate"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="shot" eType="#//GunShot"
+        eOpposite="#//GunShot/shootingPosition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="object" lowerBound="1"
+        eType="#//MovingObject" eOpposite="#//MovingObject/currentPosition"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="x" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="y" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MovingObject" abstract="true">
+    <eOperations name="move">
+      <eParameters name="seconds" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="currentPosition" eType="#//Coordinate"
+        eOpposite="#//Coordinate/object"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="width" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="angle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="speed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Drone" eSuperTypes="#//MovingObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="shot" upperBound="-1" eType="#//GunShot"
+        eOpposite="#//GunShot/drone"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UnidentifiedObject" eSuperTypes="#//MovingObject #//ProbableElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="shot" upperBound="-1" eType="#//GunShot"
+        eOpposite="#//GunShot/target"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ProbableElement" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="confidence" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GunShot" eSuperTypes="#//ProbableElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="shootingPosition" lowerBound="1"
+        eType="#//Coordinate" eOpposite="#//Coordinate/shot"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="drone" lowerBound="1" eType="#//Drone"
+        eOpposite="#//Drone/shot"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
+        eType="#//UnidentifiedObject" eOpposite="#//UnidentifiedObject/shot"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="angle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+        derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hitsTarget" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        derived="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Clock">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="now" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+</ecore:EPackage>

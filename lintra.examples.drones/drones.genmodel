@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/drones_case_study/src" modelPluginID="drones_case_study"
+    modelName="Drones" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>drones.ecore</foreignModel>
+  <genPackages prefix="Surveillance" disposableProviderFactory="true" ecorePackage="drones.ecore#/">
+    <genClasses ecoreClass="drones.ecore#//Coordinate">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference drones.ecore#//Coordinate/shot"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference drones.ecore#//Coordinate/object"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute drones.ecore#//Coordinate/x"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute drones.ecore#//Coordinate/y"/>
+      <genOperations ecoreOperation="drones.ecore#//Coordinate/distance">
+        <genParameters ecoreParameter="drones.ecore#//Coordinate/distance/other"/>
+      </genOperations>
+    </genClasses>
+    <genClasses image="false" ecoreClass="drones.ecore#//MovingObject">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference drones.ecore#//MovingObject/currentPosition"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute drones.ecore#//MovingObject/width"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute drones.ecore#//MovingObject/angle"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute drones.ecore#//MovingObject/speed"/>
+      <genOperations ecoreOperation="drones.ecore#//MovingObject/move">
+        <genParameters ecoreParameter="drones.ecore#//MovingObject/move/seconds"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="drones.ecore#//Drone">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference drones.ecore#//Drone/shot"/>
+    </genClasses>
+    <genClasses ecoreClass="drones.ecore#//UnidentifiedObject">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference drones.ecore#//UnidentifiedObject/shot"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="drones.ecore#//ProbableElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute drones.ecore#//ProbableElement/confidence"/>
+    </genClasses>
+    <genClasses ecoreClass="drones.ecore#//GunShot">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference drones.ecore#//GunShot/shootingPosition"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference drones.ecore#//GunShot/drone"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference drones.ecore#//GunShot/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute drones.ecore#//GunShot/angle"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute drones.ecore#//GunShot/hitsTarget"/>
+    </genClasses>
+    <genClasses ecoreClass="drones.ecore#//Clock">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute drones.ecore#//Clock/now"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

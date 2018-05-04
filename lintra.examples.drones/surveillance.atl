@@ -1,0 +1,97 @@
+-- @atlcompiler emftvm
+-- @path MM=/uDrones/drones.ecore
+
+module surveillance;
+create OUT : MM refining IN : MM;
+
+helper def : seconds : Real = 1;
+helper def : shootC : Real = 0.99;
+helper def : moveC : Real = 0.99;
+
+helper context MM!Coordinate def : distance(other : MM!Coordinate) : Real =
+	((self.x - other.x)*(self.x - other.x) + (self.y - other.y)*(self.y - other.y)); -- sqrt();
+
+helper def : angle(drone: MM!Drone, target : MM!UnidentifiedObject) : Real =
+	((target.currentPosition.y - drone.currentPosition.y) /
+	 (target.currentPosition.x - drone.currentPosition.x)); --.atan();
+	 
+helper context MM!GunShot def : hitsTarget(drone: MM!Drone, target : MM!UnidentifiedObject) : Real = 
+	let distance : Real =  drone.currentPosition.distance(target.currentPosition) in
+   		(drone.currentPosition.x-target.currentPosition.x+distance*self.angle.cos()).abs() <= target.width and
+   		(drone.currentPosition.y-target.currentPosition.y+distance*self.angle.sin()).abs() <= target.width;
+
+rule shoot {
+	from
+		d : MM!Drone,
+		u : MM!UnidentifiedObject ( u.confidence>0.65 and
+									u.speed>30 and
+									u.shot->select(sh | sh.confidence>0.95)->isEmpty() and
+									d.currentPosition.distance(u.currentPosition)<1000*1000)
+	to 
+		c : MM!Coordinate (
+			x <- d.currentPosition.x,
+			y <- d.currentPosition.y
+		),
+		gs : MM!GunShot (
+			--angle <- thisModule.angle(d, u), --this attributes are derived
+			--hitsTarget <- thisModule.hitsTarget(), --this attributes are derived 
+			drone <- thisModule.resolveTemp(d, 'm1'),
+			target <- thisModule.resolveTemp(u, 'm1'),
+			shootingPosition <- c,
+			confidence <- u.confidence*
+						  thisModule.shootC*
+						  (u.confidence>0.65 and
+							u.speed>30 and
+							u.shot->select(sh | sh.confidence>0.95)->isEmpty() and
+							d.currentPosition.distance(u.currentPosition)<1000)
+						   .confidence()
+		)
+}
+
+rule moveDrone {
+	from
+		m : MM!Drone
+	to 
+		c1 : MM!Coordinate (
+			object <- m1,
+			x <- m.currentPosition.x + (m.speed*thisModule.seconds)*m.angle,--.cos(),
+			y <- m.currentPosition.y + (m.speed*thisModule.seconds)*m.angle --.sin()			
+		),
+		m1 : MM!Drone (
+			angle <- m.angle,
+			speed <- m.speed,
+			width <- m.width
+		)		
+}
+
+rule moveUnidentifiedObject {
+	from
+		m : MM!UnidentifiedObject
+	to 
+		c1 : MM!Coordinate (
+			object <- m1,
+			x <- m.currentPosition.x + (m.speed*thisModule.seconds)*m.angle,--.cos(),
+			y <- m.currentPosition.y + (m.speed*thisModule.seconds)*m.angle --.sin()			
+		),
+		m1 : MM!UnidentifiedObject (
+			angle <- m.angle,
+			speed <- m.speed,
+			width <- m.width,
+			confidence <- m.confidence*thisModule.moveC
+		)		
+}
+
+rule coordinate {
+	from
+		c : MM!Coordinate
+	to 
+}
+
+rule clock {
+	from
+		c : MM!Clock
+	to 
+		c1 : MM!Clock (
+			now <- c.now+thisModule.seconds
+		)
+}
