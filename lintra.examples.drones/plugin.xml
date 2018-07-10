@@ -10,7 +10,7 @@
       <!-- @generated drones -->
       <package
             uri="http://surveillance"
-            class="surveillance.SurveillancePackage"
+            class="mm.confidence.surveillance.SurveillancePackage"
             genModel="drones.genmodel"/>
    </extension>
 
