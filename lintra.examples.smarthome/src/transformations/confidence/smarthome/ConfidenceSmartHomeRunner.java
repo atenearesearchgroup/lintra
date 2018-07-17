@@ -19,7 +19,10 @@ public class ConfidenceSmartHomeRunner {
 	
 	public static void main(String[] args) throws Exception {
 		
-		run(3, 5);
+		run(10, 996);
+		run(10, 996*2);
+		run(10, 996*3);
+		run(10, 996*4);
 		
 	}
 
@@ -53,7 +56,7 @@ public class ConfidenceSmartHomeRunner {
 					new UReal(1000*idCounter, 10)); idCounter++; model.add(l);
 		}
 		
-		for (int i = 0; i < 996*2; i++) {
+		for (int i = 0; i < numPersons; i++) {
 			Home h = new Home(Double.toString(idCounter), Double.toString(idCounter%numHomes), Double.toString(idCounter%numHomes), 
 					new UReal(30+idCounter%2, 0.5), new UReal(4920+idCounter%100, 0.5),
 					new UBoolean(true, 0.8), 80, new UReal(idCounter, 1)); idCounter++; model.add(h);

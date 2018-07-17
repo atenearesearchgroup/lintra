@@ -17,7 +17,10 @@ public class PlainSmartHomeRunner {
 	
 	public static void main(String[] args) throws Exception {
 		
-		run(3, 5);
+		run(10, 996);
+		run(10, 996*2);
+		run(10, 996*3);
+		run(10, 996*4);
 	}
 
 	private static void run(int numHomes, int numPersons) throws BlackboardException, Exception {
@@ -49,7 +52,7 @@ public class PlainSmartHomeRunner {
 			Location l = new Location(Double.toString(idCounter), 1000*idCounter, 1000*idCounter); idCounter++; model.add(l);
 		}
 		
-		for (int i = 0; i < 996*2; i++) {
+		for (int i = 0; i < numPersons; i++) {
 			Home h = new Home(Double.toString(idCounter), Double.toString(idCounter%numHomes), Double.toString(idCounter%numHomes), 
 					30+idCounter%2, 4920+idCounter%100,
 					true, 80, idCounter); idCounter++; model.add(h);
